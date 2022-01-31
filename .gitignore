@@ -1,0 +1,6 @@
+.vscode/
+__pycache__/
+telegram_token.txt
+debug_main.py
+dist/
+*.zip
