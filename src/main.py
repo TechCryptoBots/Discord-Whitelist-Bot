@@ -22,12 +22,12 @@ if __name__ == "__main__":
     # warning_handler.setFormatter(WarningFormatter())
     # logger.addHandler(warning_handler)
     
-    with open("config/config.yaml", "r") as stream:
+    with open("config/config.yaml", "r", encoding="utf8") as stream:
         config = yaml.safe_load(stream)
     
     # Set up telegram bot
     if config['log_tg'] and config.get('telegram_settings'):
-        with open(config['telegram_settings'], "r") as stream:
+        with open(config['telegram_settings'], "r", encoding="utf8") as stream:
             tg_config = yaml.safe_load(stream)
         bot = telegram.Bot(tg_config['telegram_token'])
         logger.addHandler(BotLogger(bot=bot, chat_id=tg_config['chat_id'], level=logging.INFO))

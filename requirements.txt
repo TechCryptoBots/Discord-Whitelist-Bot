@@ -1,3 +1,4 @@
 python-telegram-bot
 pyyaml
 urllib3==1.25.11 
+requests
