@@ -55,6 +55,7 @@ class DiscordBot:
         self.send_thread.join()
 
     def start_sending(self):
+        logging.info("Работаем...")
         while self.message_reader.has_messages():
             self.send_next_message()
             delay = self.config['send_delay']
