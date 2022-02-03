@@ -13,15 +13,14 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class DiscordBot:
 
     def __init__(self, config) -> None:
-        self.message_reader = FileMessageLoader(
-            message_file=config["messages_file"], accounts_amount=3)
-
         self.config = config
 
         account_loader = AccountLoader(accounts_file=config["accounts_file"])
         if config["use_proxy"]:
             account_loader.proxy_file = config["proxy_file"]
         self.accounts = account_loader.load_accounts()
+        self.message_reader = FileMessageLoader(
+            message_file=config["messages_file"], accounts_amount=len(self.accounts))
 
         self.discord_sender = DiscordSender(chat_id=config["chat_id"], log=config["log_send"])
         self.discord_reader = DiscordReader(chat_id=config["chat_id"], log=config["log_read"])
@@ -34,6 +33,8 @@ class DiscordBot:
 
     def send_next_message(self, simulate_typing=True):
         message = self.message_reader.get_next_message()
+        if message.account_id > len(self.accounts):
+            raise ValueError(f'Бот хочет отправить сообщение от аккаунта номер {message.account_id}, но аккаунтов всего  {len(self.accounts)}')
         current_account = self.accounts[message.account_id - 1]
         if simulate_typing:
             secs_per_character = self.config['typing_delay_per_character']
