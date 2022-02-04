@@ -1,8 +1,5 @@
 import re
 
-from isort import file
-
-
 class Message:
     def __init__(self, text, account_id, is_reply=False, reply_account_id=0) -> None:
         self.account_id = account_id
