@@ -10,7 +10,7 @@ class WarningFormatter(logging.Formatter):
     def format(self, record):
         result = super().format(record)
         if record.levelno == logging.WARNING:
-            result = f"⚠️ {result}"
+            result = f"{result}"
 
 if __name__ == "__main__":
     # logging.basicConfig(
