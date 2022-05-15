@@ -22,6 +22,11 @@ if __name__ == "__main__":
     # warning_handler.setFormatter(WarningFormatter())
     # logger.addHandler(warning_handler)
     
+    # check license
+    from license import check_licence
+    check_licence()
+
+    
     with open("config/config.yaml", "r", encoding="utf8") as stream:
         config = yaml.safe_load(stream)
     
